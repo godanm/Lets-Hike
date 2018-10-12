@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TrailSearch from "./TrailSearch";
+import Dashboard from './Dashboard';
 class App extends Component {
 
 
@@ -7,7 +7,7 @@ class App extends Component {
 
     return (
         <div>
-          <TrailSearch  />
+          <Dashboard  />
         </div>
     );
   }
