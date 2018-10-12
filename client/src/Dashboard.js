@@ -14,8 +14,8 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import SimpleTable from './SimpleTable';
+import { mainListItems, secondaryListItems } from './LeftNav';
+import TrailsList from './TrailsList';
 
 const drawerWidth = 220;
 
@@ -136,7 +136,7 @@ class Dashboard extends React.Component {
                 noWrap
                 className={classes.title}
               >
-                Dashboard
+                Lets Do It!
               </Typography>
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
@@ -165,10 +165,10 @@ class Dashboard extends React.Component {
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
             <Typography variant="display1" gutterBottom component="h2">
-              Products
+              Trails
             </Typography>
             <div className={classes.tableContainer}>
-              <SimpleTable />
+              <TrailsList />
             </div>
           </main>
         </div>

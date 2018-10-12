@@ -10,8 +10,27 @@ app.set("port", process.env.PORT || 3001);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+let lat, lon;
 
-app.get('/api/food', (req, res) => {
+app.get('/api/getTrails', (req, res) => {
+  lat = req.query.lat;
+  lon = req.query.lon;
+
+
+  if (!lat) {
+    res.json({
+      error: "Missing required parameter `lat`"
+    });
+    return;
+  }
+  if (!lon) {
+    res.json({
+      error: "Missing required parameter `lon`"
+    });
+    return;
+  }
+
+
   getData().then(trails => {
     res.json({ trails })
   })
@@ -20,7 +39,14 @@ app.get('/api/food', (req, res) => {
 
 const getTrails = async () => {
   try {
-    return await axios.get('https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200367496-d6de8db97c0a6ac416014fc58fe6c5fc')
+    return axios.get('https://www.hikingproject.com/data/get-trails', {
+          params: {
+              lat:  lat,
+              lon: lon,
+              maxDistance:1000,
+              key:'200367496-d6de8db97c0a6ac416014fc58fe6c5fc'
+          }
+})
   } catch (error) {
     console.error(error)
   }
