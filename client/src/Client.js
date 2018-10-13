@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
 function search(lat, lon, cb) {
-  console.log('lat',lat);
-  console.log('lon',lon);
 
   return fetch(`http://localhost:3001/api/getTrails?lat=${lat}&lon=${lon}`, {
     accept: "application/json"

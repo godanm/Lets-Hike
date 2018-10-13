@@ -23,23 +23,33 @@ const styles = {
 
 
 class TrailsList extends React.Component {
-
-  state = {
-      trails: []
-    }
+  constructor(props) {
+          super(props);
+          this.state = {
+              trails: [],
+              latLng:'',
+              shown: false,
+          };
+      }
 
   componentDidMount() {
+    console.log("In main");
     //const searchQuery = 'https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=100&key=200367496-d6de8db97c0a6ac416014fc58fe6c5fc'
     Client.search('33.7288935', '-112.2840607', data => {
         this.setState(data)
         });
   }
+
+  updateState() {
+          console.log("In sdsdksdk",this.state.latLng);
+          this.setState({ shown: true });
+      }
   render() {
     const { classes } = this.props;
 
   return (
     <Paper className={classes.root}>
-    <LocationSearchInput />
+    <LocationSearchInput updateParent={ this.updateState.bind(this) }/>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>

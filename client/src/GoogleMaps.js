@@ -1,35 +1,49 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField'
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import SearchIcon from '@material-ui/icons/Search';
+import Table from '@material-ui/core/Table';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
 
-
-const styles = {
-  card: {
-    maxWidth: 345,
-    align:'right',
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
-  media: {
-    height: 20,
+  button: {
+   margin: theme.spacing.unit,
+ },
+ extendedIcon: {
+   marginRight: theme.spacing.unit,
+ },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width:'400px',
   },
-};
+  dense: {
+    marginTop: 16,
+  },
+  menu: {
+    width: 200,
+  },
+});
 
 
 class LocationSearchInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = { address: '' };
+    this.state = { godan: '1' };
+    this.state = { error: '' };
   }
 
   handleChange = address => {
@@ -37,43 +51,63 @@ class LocationSearchInput extends React.Component {
   };
 
   handleSelect = address => {
-    geocodeByAddress(address)
+      geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-      .then(latLng => console.log('Success', latLng))
+      .then(latLng => this.setState({latLng}))
       .catch(error => console.error('Error', error));
+      this.setState({ address });
   };
+
+  handeClick = buttonClick => {
+    if (this.state.latLng) {
+      this.setState({ error: '' })
+      console.log('this.state.latLng',this.state.latLng)
+    }
+    else {
+      this.setState({ error: 'Invalid format: ###-###-####' })
+    }
+  }
 
   render() {
     const { classes } = this.props;
     return (
+      <Table className={classes.table}>
+        <TableHead>
+          <TableRow>
+          <TableCell></TableCell>
+          <TableCell></TableCell>
+          <TableCell></TableCell>
+          <TableCell></TableCell>
+          <TableCell></TableCell>
+          <TableCell></TableCell>
+          <TableCell></TableCell>
 
-      <Card className={classes.card}>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            <PlacesAutocomplete
+          <TableCell numeric={true}>
+          <PlacesAutocomplete
               value={this.state.address}
               onChange={this.handleChange}
               onSelect={this.handleSelect}
             >
               {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                 <div>
-                  <input
+                  <TextField
+                    ref="search"
+                    error= {this.state.error.length === 0 ? false : true }
+                    id="outlinedname"
+                    label="Search Places..."
+                    className={classes.textField}
+                    margin="normal"
+                    variant="outlined"
                     {...getInputProps({
                       placeholder: 'Search Places ...',
                     })}
                   />
-                  <div className="autocomplete-dropdown-container">
+                  <div>
                     {loading && <div>Loading...</div>}
                     {suggestions.map(suggestion => {
                       const className = suggestion.active
-                        ? 'suggestion-item--active'
-                        : 'suggestion-item';
+                          ? 'suggestionitemactive'
+                        : 'suggestionitem';
                       // inline style for demonstration purpose
                       const style = suggestion.active
                         ? { backgroundColor: '#fafafa', cursor: 'pointer' }
@@ -93,17 +127,17 @@ class LocationSearchInput extends React.Component {
                 </div>
               )}
             </PlacesAutocomplete>
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Search
-        </Button>
-      </CardActions>
-    </Card>
-
+            </TableCell>
+            <TableCell>
+            <Button variant="fab" color="primary" aria-label="Add" className={classes.button} onClick={this.handeClick}>
+              <SearchIcon />
+            </Button>
+            </TableCell>
+            </TableRow>
+            </TableHead>
+            </Table>
     );
   }
 }
+
 export default withStyles(styles)(LocationSearchInput);
