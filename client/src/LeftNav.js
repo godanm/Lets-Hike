@@ -14,7 +14,7 @@ export const mainListItems = (
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="Search Trails" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
@@ -26,13 +26,13 @@ export const mainListItems = (
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>
-      <ListItemText primary="Customers" />
+      <ListItemText primary="Upcoming Hikes" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="Plan a Hike" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>

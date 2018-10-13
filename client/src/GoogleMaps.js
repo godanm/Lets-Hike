@@ -7,6 +7,7 @@ import Table from '@material-ui/core/Table';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import PropTypes from 'prop-types';
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -39,15 +40,22 @@ const styles = theme => ({
 
 
 class LocationSearchInput extends React.Component {
+  static propTypes = {
+    searchInput: PropTypes.shape({ value: PropTypes.instanceOf(HTMLInputElement) })
+  };
   constructor(props) {
     super(props);
     this.state = { address: '' };
-    this.state = { godan: '1' };
     this.state = { error: '' };
   }
 
   handleChange = address => {
     this.setState({ address });
+    if (!this.state.latLng) {
+      this.setState({ error: 'Invalid format: ###-###-####' })
+    } else {
+      this.setState({ error: '' })
+    }
   };
 
   handleSelect = address => {
@@ -56,17 +64,10 @@ class LocationSearchInput extends React.Component {
       .then(latLng => this.setState({latLng}))
       .catch(error => console.error('Error', error));
       this.setState({ address });
+      this.setState({ error: '' })
+
   };
 
-  handeClick = buttonClick => {
-    if (this.state.latLng) {
-      this.setState({ error: '' })
-      console.log('this.state.latLng',this.state.latLng)
-    }
-    else {
-      this.setState({ error: 'Invalid format: ###-###-####' })
-    }
-  }
 
   render() {
     const { classes } = this.props;
@@ -91,7 +92,8 @@ class LocationSearchInput extends React.Component {
               {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                 <div>
                   <TextField
-                    ref="search"
+                    ref={this.props.searchInput}
+                    onBlur={this.handleChange}
                     error= {this.state.error.length === 0 ? false : true }
                     id="outlinedname"
                     label="Search Places..."
@@ -99,7 +101,7 @@ class LocationSearchInput extends React.Component {
                     margin="normal"
                     variant="outlined"
                     {...getInputProps({
-                      placeholder: 'Search Places ...',
+                      placeholder: 'Search Trails ...',
                     })}
                   />
                   <div>
@@ -129,7 +131,7 @@ class LocationSearchInput extends React.Component {
             </PlacesAutocomplete>
             </TableCell>
             <TableCell>
-            <Button variant="fab" color="primary" aria-label="Add" className={classes.button} onClick={this.handeClick}>
+            <Button variant="fab" color="primary" aria-label="Add" className={classes.button} onClick={this.props.handler}>
               <SearchIcon />
             </Button>
             </TableCell>
