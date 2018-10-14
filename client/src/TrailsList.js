@@ -1,4 +1,4 @@
-  import React from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -10,20 +10,10 @@ import Paper from '@material-ui/core/Paper';
 import Client from './Client';
 import LocationSearchInput from './GoogleMaps';
 
-import PlacesAutocomplete, {
-  geocodeByAddress,
+import geocodeByAddress, {
   getLatLng,
 } from 'react-places-autocomplete';
 
-const CustomTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
 
 const styles = theme => ({
   root: {
@@ -71,7 +61,6 @@ class TrailsList extends React.Component {
 
     }
   componentDidMount() {
-    console.log("In main");
     //const searchQuery = 'https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=100&key=200367496-d6de8db97c0a6ac416014fc58fe6c5fc'
     Client.search('33.7288935', '-112.2840607', data => {
         this.setState(data)
