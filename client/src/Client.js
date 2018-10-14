@@ -3,7 +3,7 @@ function search(lat, lon, cb) {
   console.log('lat',lat);
   console.log('lon',lon);
 
-  return fetch(`http://lets-hike.herokuapp.com/api/getTrails?lat=${lat}&lon=${lon}`, {
+  return fetch(`http://localhost:3001/api/getTrails?lat=${lat}&lon=${lon}`, {
     accept: "application/json"
   })
     .then(checkStatus)

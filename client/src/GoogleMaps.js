@@ -96,7 +96,7 @@ class LocationSearchInput extends React.Component {
                     onBlur={this.handleChange}
                     error= {this.state.error.length === 0 ? false : true }
                     id="outlinedname"
-                    label="Search Places..."
+                    label="Search Trails..."
                     className={classes.textField}
                     margin="normal"
                     variant="outlined"

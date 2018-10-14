@@ -164,9 +164,6 @@ class Dashboard extends React.Component {
           </Drawer>
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
-            <Typography variant="display1" gutterBottom component="h2">
-              Trails
-            </Typography>
             <div className={classes.tableContainer}>
               <TrailsList />
             </div>
