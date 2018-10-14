@@ -32,7 +32,6 @@ class Login extends Component {
 
 	componentDidMount () {
 		this.removeListener = auth.onAuthStateChanged((user) => {
-			console.log('user',user)
 			if (user) {
 				this.setState({
 					authed: true,

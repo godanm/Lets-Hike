@@ -12,7 +12,7 @@ const styles = theme => ({
 		display: 'flex',
 		flexDirection: 'column',
 		minHeight: '100vh',
-		background: '#ffffff'
+		background: '#E5E4E4'
 	},
 	bottom: {
 		width: '100%',
@@ -47,6 +47,7 @@ const styles = theme => ({
 	},
 	textField: {
 		marginTop: 0,
+		color: '#FFFFFF'
 	},
 	errorMsg: {
 		color: '#FF5722'
@@ -54,6 +55,7 @@ const styles = theme => ({
 	loginButton: {
 		width: '100%',
 		height: '50px',
+		fontcolor: '#FF5722',
 	},
 	bottomButtons: {
 		width: '75%',
@@ -75,6 +77,7 @@ const LoginForm = (props) => {
 								<img src="https://waterfallsofthegrandcanyon.com/wp-content/uploads/2016/01/beaver-falls.jpg"  height="400px"/>
                     <form className={props.classes.form} noValidate autoComplete="off" onSubmit={props.submit}>
                         <TextField
+														autoFocus={true}
                             id="email"
                             label="Email"
                             className={props.classes.textField}

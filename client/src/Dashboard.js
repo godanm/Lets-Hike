@@ -16,8 +16,10 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './LeftNav';
 import TrailsList from './TrailsList';
-import { Redirect } from 'react-router';
-
+import { Redirect, Link } from 'react-router-dom';
+import {
+	signOut
+} from './utils/auth'
 const drawerWidth = 220;
 
 const styles = theme => ({
@@ -96,7 +98,7 @@ const styles = theme => ({
 
 class Dashboard extends React.Component {
   state = {
-    open: true,
+    open: false,
   };
 
   handleDrawerOpen = () => {
@@ -106,9 +108,11 @@ class Dashboard extends React.Component {
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
-  signOut = () => {
-  }
 
+  handleSignout = () => {
+    signOut();
+    return <Redirect to="/"/>
+  }
   render() {
     const { classes } = this.props;
 
@@ -141,8 +145,8 @@ class Dashboard extends React.Component {
               >
                 Lets Do It!
               </Typography>
-              <IconButton color="inherit" onClick={this.signOut}>
-                <Badge color="secondary">
+              <IconButton label="Logout" color="#ffffff" onClick={this.handleSignout}>
+                <Badge>
                   <NotificationsIcon color="white"/>
                 </Badge>
               </IconButton>

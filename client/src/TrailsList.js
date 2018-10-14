@@ -10,7 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import Client from './Client';
 import LocationSearchInput from './GoogleMaps';
 
-import geocodeByAddress, {
+import PlacesAutocomplete, {
+  geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
 
@@ -76,12 +77,10 @@ class TrailsList extends React.Component {
       <Table className={classes.table}>
         <TableHead className={classes.tablehead}>
           <TableRow>
-            <TableCell>Select</TableCell>
             <TableCell>Trail Name</TableCell>
             <TableCell numeric>Location</TableCell>
             <TableCell numeric># of votes</TableCell>
             <TableCell numeric>Ratings</TableCell>
-            <TableCell numeric>Preview</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

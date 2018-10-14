@@ -1,5 +1,13 @@
 import firebase from 'firebase';
 // Initialize Firebase
+var config = {
+    apiKey: "AIzaSyDCPHGe9yqjKe8pA-JZ7MInT6Sr_Gb0Gco",
+    authDomain: "hike-1538513373444.firebaseapp.com",
+    databaseURL: "https://hike-1538513373444.firebaseio.com",
+    projectId: "hike-1538513373444",
+    storageBucket: "hike-1538513373444.appspot.com",
+    messagingSenderId: "118089687123"
+};
 
 export const fire = firebase.initializeApp(config);
 export const auth = fire.auth();
@@ -16,6 +24,7 @@ export const signIn = (email, password) => {
 
 //sign out
 export const signOut = () => {
+    console.log('Sign out');
     return auth.signOut();
 }
 
