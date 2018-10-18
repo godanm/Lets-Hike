@@ -16,7 +16,10 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './LeftNav';
 import TrailsList from './TrailsList';
+import Groups from './Groups';
 import { Redirect, Link } from 'react-router-dom';
+import queryString from 'query-string';
+
 import {
 	signOut
 } from './utils/auth'
@@ -27,7 +30,7 @@ const styles = theme => ({
     display: 'flex',
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 10, // keep right padding when drawer closed
   },
   toolbarIcon: {
     display: 'flex',
@@ -115,8 +118,11 @@ class Dashboard extends React.Component {
   }
   render() {
     const { classes } = this.props;
-
+		const values = queryString.parse(this.props.location.search)
+		const load = values.load;
+		console.log('load:::',load);
     return (
+
       <React.Fragment>
         <CssBaseline />
         <div className={classes.root}>
@@ -145,11 +151,13 @@ class Dashboard extends React.Component {
               >
                 Lets Do It!
               </Typography>
+              <a href="/">
               <IconButton label="Logout" color="#ffffff" onClick={this.handleSignout}>
-                <Badge>
+                <Badge color="#ffffff">
                   <NotificationsIcon color="white"/>
                 </Badge>
               </IconButton>
+              </a>
             </Toolbar>
           </AppBar>
           <Drawer
@@ -172,7 +180,11 @@ class Dashboard extends React.Component {
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
             <div className={classes.tableContainer}>
-              <TrailsList />
+						{load === 'Groups' ? (
+        			<Groups />
+      			) : (
+        			<TrailsList  />
+      		)}
             </div>
           </main>
         </div>

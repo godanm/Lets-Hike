@@ -10,6 +10,8 @@ var config = {
 };
 
 export const fire = firebase.initializeApp(config);
+export const db = firebase.database(fire);
+
 export const auth = fire.auth();
 
 //sign up
@@ -31,4 +33,20 @@ export const signOut = () => {
 //password reset
 export const passwordUpdate = (email) => {
     return auth.sendPasswordResetEmail(email);
+}
+
+export const writeUserData = (email) => {
+  // A post entry.
+   var postData = {
+     email:email
+   };
+
+   // Get a key for a new Post.
+   var newPostKey = firebase.database().ref().child('users').push().key;
+
+   // Write the new post's data simultaneously in the posts list and the user's post list.
+   var updates = {};
+   updates['/users/' + newPostKey] = postData;
+
+   return firebase.database().ref().update(updates);
 }

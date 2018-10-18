@@ -5,7 +5,8 @@ import {
 	signIn,
 	signOut,
 	createEmailPassword,
-	passwordUpdate
+	passwordUpdate,
+	writeUserData
 } from '../utils/auth'
 import LoginForm from './LoginForm'
 import SignUpForm from './SignUp'
@@ -61,6 +62,7 @@ class Login extends Component {
 	handleSignUp = (e) => {
 		this.setState({loading: true});
 		createEmailPassword(this.state.email, this.state.password)
+		writeUserData(this.state.email)
 		.catch((error) => {
 			console.log(error.message);
 			this.setState({loading: false});
@@ -106,8 +108,6 @@ class Login extends Component {
 	}
 
 	  render () {
-			// place homepage or dashboard here to redirect after login
-			console.log("this.state.authed",this.state.authed);
 			if(this.state.authed){
 			 	return <Redirect to="/dashboard"/>
 			}

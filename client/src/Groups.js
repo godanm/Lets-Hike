@@ -8,7 +8,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Client from './Client';
-import LocationSearchInput from './GoogleMaps';
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -33,7 +32,7 @@ const styles = theme => ({
 });
 
 
-class TrailsList extends React.Component {
+class Groups extends React.Component {
   searchInput = React.createRef();
   constructor(props) {
           super(props);
@@ -62,7 +61,6 @@ class TrailsList extends React.Component {
 
     }
   componentDidMount() {
-    //const searchQuery = 'https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=100&key=200367496-d6de8db97c0a6ac416014fc58fe6c5fc'
     Client.search('33.7288935', '-112.2840607', data => {
         this.setState(data)
         });
@@ -73,11 +71,10 @@ class TrailsList extends React.Component {
 
   return (
     <Paper className={classes.root}>
-    <LocationSearchInput handler = {this.handler.bind(this)} ref="search" searchInput={this.searchInput}  />
       <Table className={classes.table}>
         <TableHead className={classes.tablehead}>
           <TableRow>
-            <TableCell>Trail Name</TableCell>
+            <TableCell>Poda</TableCell>
             <TableCell numeric>Location</TableCell>
             <TableCell numeric># of votes</TableCell>
             <TableCell numeric>Ratings</TableCell>
@@ -105,8 +102,8 @@ class TrailsList extends React.Component {
 }
 }
 
-TrailsList.propTypes = {
+Groups.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(TrailsList);
+export default withStyles(styles)(Groups);

@@ -7,24 +7,29 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
+import { Link } from 'react-router-dom'
 
 export const mainListItems = (
   <div>
+  <Link to='/dashboard'>
     <ListItem button>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Search Trails"  />
     </ListItem>
-      <ListItem button >
+    </Link>
+    <Link to='/dashboard?load=Groups'>
+          <ListItem button >
         <ListItemIcon>
-          <ShoppingCartIcon />
+          <PeopleIcon />
         </ListItemIcon>
         <ListItemText primary="My Groups" />
       </ListItem>
+      </Link>
     <ListItem button>
       <ListItemIcon>
-        <PeopleIcon />
+        <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Upcoming Hikes" />
     </ListItem>

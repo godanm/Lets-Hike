@@ -3,6 +3,8 @@ import './App.css';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Login from './auth/Login';
 import Dashboard from './Dashboard';
+import Groups from './Groups';
+
 
 class App extends Component {
 
