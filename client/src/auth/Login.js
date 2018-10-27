@@ -5,8 +5,7 @@ import {
 	signIn,
 	signOut,
 	createEmailPassword,
-	passwordUpdate,
-	writeUserData
+	passwordUpdate
 } from '../utils/auth'
 import LoginForm from './LoginForm'
 import SignUpForm from './SignUp'
@@ -62,7 +61,6 @@ class Login extends Component {
 	handleSignUp = (e) => {
 		this.setState({loading: true});
 		createEmailPassword(this.state.email, this.state.password)
-		writeUserData(this.state.email)
 		.catch((error) => {
 			console.log(error.message);
 			this.setState({loading: false});

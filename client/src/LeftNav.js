@@ -19,20 +19,22 @@ export const mainListItems = (
       <ListItemText primary="Search Trails"  />
     </ListItem>
     </Link>
-    <Link to='/dashboard?load=Groups'>
+    <Link to='/dashboard?load=groups'>
           <ListItem button >
         <ListItemIcon>
           <PeopleIcon />
         </ListItemIcon>
-        <ListItemText primary="My Groups" />
+        <ListItemText primary="My Groups" al />
       </ListItem>
       </Link>
+      <Link to='/dashboard?load=myhikes'>
     <ListItem button>
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Upcoming Hikes" />
     </ListItem>
+    </Link>
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />

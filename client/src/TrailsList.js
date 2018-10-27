@@ -66,6 +66,8 @@ class TrailsList extends React.Component {
     Client.search('33.7288935', '-112.2840607', data => {
         this.setState(data)
         });
+        console.log('GODSUD',this.state);
+
   }
 
   render() {

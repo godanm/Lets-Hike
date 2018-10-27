@@ -2,14 +2,30 @@ const express = require("express");
 const fs = require("fs");
 const app = express();
 const axios = require('axios');
+
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+var dbName = "hiking";
+
 var cors = require('cors')
 app.use(cors())
 app.set("port", process.env.PORT || 3001);
-
 // Express only serves static assets in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+app.get('/api/getGroups', function(req, res, result){
+      MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db(dbName);
+        dbo.collection("groups").find({}).toArray(function(err, result) {
+          if (err) throw err;
+            res.json(result);
+        });
+});
+});
+
 let lat, lon;
 
 app.get('/api/getTrails', (req, res) => {
@@ -29,8 +45,6 @@ app.get('/api/getTrails', (req, res) => {
     });
     return;
   }
-
-
   getData().then(trails => {
     res.json({ trails })
   })

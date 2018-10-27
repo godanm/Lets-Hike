@@ -1,0 +1,11 @@
+{"Groups": {
+  "id": 1,
+  "group-name": "Hikers-Hiking",
+  "Members": {
+    "Member": [
+      {"Name": "Rajesh", "email": "rajesh.radhika@gmail.com"},
+      {"Name": "Sajesh", "email": "sajesh.enampurath@gmail.com"},
+      {"Name": "Godan", "onclick": "reachgodan@gmail.com"}
+    ]
+  }
+}}

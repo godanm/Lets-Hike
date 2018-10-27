@@ -17,6 +17,11 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './LeftNav';
 import TrailsList from './TrailsList';
 import Groups from './Groups';
+import MyHikes from './MyHikes';
+import Client from './Client';
+
+
+
 import { Redirect, Link } from 'react-router-dom';
 import queryString from 'query-string';
 
@@ -116,11 +121,11 @@ class Dashboard extends React.Component {
     signOut();
     return <Redirect to="/"/>
   }
+
   render() {
     const { classes } = this.props;
 		const values = queryString.parse(this.props.location.search)
 		const load = values.load;
-		console.log('load:::',load);
     return (
 
       <React.Fragment>
@@ -180,7 +185,7 @@ class Dashboard extends React.Component {
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
             <div className={classes.tableContainer}>
-						{load === 'Groups' ? (
+						{load === 'groups' ? (
         			<Groups />
       			) : (
         			<TrailsList  />

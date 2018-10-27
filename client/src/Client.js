@@ -1,7 +1,5 @@
 /* eslint-disable no-undef */
 function search(lat, lon, cb) {
-  console.log('lat',lat);
-  console.log('lon',lon);
 
   return fetch(`http://localhost:3001/api/getTrails?lat=${lat}&lon=${lon}`, {
     accept: "application/json"
@@ -26,5 +24,19 @@ function parseJSON(response) {
   return response.json();
 }
 
-const Client = { search };
+function getGroups() {
+  try {
+    //return google.login(data.username, data.password).then(token => { return token } )
+    return fetch(`http://localhost:3001/api/getGroups`, {
+      accept: "application/json"
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(cb => {return cb});
+} catch (error) {
+  let er = error;
+}
+}
+
+const Client = { getGroups, search };
 export default Client;

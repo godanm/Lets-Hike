@@ -1,6 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
+import Icon from '@material-ui/core/Icon';
+import TextField from '@material-ui/core/TextField'
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,95 +18,118 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Client from './Client';
 
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
-
-
 const styles = theme => ({
   root: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
-    overflowX: 'auto',
   },
-  table: {
-    minWidth: 700,
+  icon: {
+    margin: theme.spacing.unit * 2,
   },
-  row: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.background.default,
+  iconHover: {
+    margin: theme.spacing.unit * 2,
+    '&:hover': {
+      color: blue[800],
     },
+  },
+  signUpButton: {
+    width: '100%',
+    height: '50px',
+    fontcolor: '#FF5722',
+  },
+  textField: {
+      width: '50%',
+  },
+  form: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      width: '100%',
+      align: 'center',
+      justifyContent: 'center',
+      paddingRight: '18px'
   },
 });
 
-
 class Groups extends React.Component {
-  searchInput = React.createRef();
-  constructor(props) {
+	constructor(props) {
           super(props);
           this.state = {
-              trails: [],
-              latLng:'',
+              expanded:null,
+							groups:[],
           };
-          this.handler = this.handler.bind(this)
+          this.componentDidMount = this.componentDidMount.bind(this);
 
       }
+      componentDidMount() {
+    		Client.getGroups(data => {
+    				this.setState(data);
+    				});
+    				console.log('GGGGGG::::', this.state);
+    	}
 
-    handler(e) {
-      if (this.searchInput.current.props.value) {
-        const address = this.searchInput.current.props.value;
-        geocodeByAddress(address)
-          .then(results => getLatLng(results[0]))
-          .then(latLng =>
-            Client.search(latLng.lat, latLng.lng, data => {
-                this.setState(data)
-                })
-          )
-          .catch(error => console.error('Error', error));
-      } else {
-          this.state.error = 'Error';
-      }
+   handleChange = panel => (event, expanded) => {
+     this.setState({
+       expanded: expanded ? panel : false,
+     });
+   };
 
-    }
-  componentDidMount() {
-    Client.search('33.7288935', '-112.2840607', data => {
-        this.setState(data)
-        });
-  }
+   handleAddGroup = (e) => {
+     /* api.writeGroupData(this.inputNode.value)
+     .catch((error) => {
+       console.log(error.message);
+       });
+       this.state.expanded = false;
+       this.handleChange('panel1');
+       this.forceUpdate(); */
+   };
+
 
   render() {
     const { classes } = this.props;
+    const { expanded } = this.state;
 
   return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        <TableHead className={classes.tablehead}>
-          <TableRow>
-            <TableCell>Poda</TableCell>
-            <TableCell numeric>Location</TableCell>
-            <TableCell numeric># of votes</TableCell>
-            <TableCell numeric>Ratings</TableCell>
-            <TableCell numeric>Preview</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {this.state.trails.map(n => {
-            return (
-              <TableRow key={n.id}>
-                <TableCell component="th" scope="row">
-                  <a href={n.url} target="_blank">{n.name}</a>
-                </TableCell>
-                <TableCell numeric>{n.location}</TableCell>
-                <TableCell numeric>{n.starVotes}</TableCell>
-                <TableCell numeric>{n.stars}</TableCell>
-                <TableCell numeric><img className="avatar" src={n.imgSqSmall} alt={n.name}/></TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Paper>
+    <div>
+    <ExpansionPanel expanded={expanded === 'panel1'} onChange={this.handleChange('panel1')}>
+  <ExpansionPanelSummary expandIcon={
+    <Icon className={classes.iconHover} color="blue" style={{ fontSize: 30 }}>
+         add_circle
+    </Icon>
+    }>
+    <Typography className={classes.heading}>Add new Group</Typography>
+  </ExpansionPanelSummary>
+  <ExpansionPanelDetails>
+     <Typography>
+    <form noValidate autoComplete="off">
+        <TextField
+            id="groupname"
+            label="Group name.."
+            type="text"
+            margin="normal"
+            fullWidth
+            inputRef={node => this.inputNode = node}
+        />
+        <Button className={classes.signUpButton} onClick={this.handleAddGroup} type="button">Save</Button>
+    </form>
+    </Typography>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+				<Paper className={classes.root}>
+		      <Table className={classes.table}>
+		        <TableHead className={classes.tablehead}>
+		          <TableRow>
+		            <TableCell>Group Name</TableCell>
+		            <TableCell numeric>Location</TableCell>
+		          </TableRow>
+		        </TableHead>
+						<TableBody>
+		        </TableBody>
+		      </Table>
+		    </Paper>
+    </div>
+
   );
 }
 }

@@ -6,10 +6,13 @@
     "@material-ui/core": "^3.1.2",
     "axios": "^0.18.0",
     "babel-core": "^6.26.3",
+    "connect-history-api-fallback": "^1.5.0",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "fs": "0.0.2",
     "google-maps-react": "^2.0.2",
+    "mongojs": "^2.6.0",
+    "mongoose": "^5.3.6",
     "sql.js": "0.3.2"
   },
   "scripts": {
